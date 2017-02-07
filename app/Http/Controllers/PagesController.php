@@ -13,7 +13,7 @@ class PagesController extends Controller{
 		$last = 'Fernando';
 
 		$full = $first.' '.$last;
-		return view('pages.about')->with("fullname", $full);
+		return view('pages.about')->withFullname($full);
 	}
 
 	public function getContact(){
