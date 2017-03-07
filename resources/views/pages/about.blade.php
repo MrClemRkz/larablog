@@ -1,5 +1,14 @@
 @extends('main')
 
+@section('styles')
+    <style type="text/css">
+    /*strikethrough all h3 tags*/
+    h3{
+        text-decoration: line-through;
+    }
+    </style>
+@endsection
+
 @section('title', '| About')
 
 @section('content')

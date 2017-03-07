@@ -27,3 +27,10 @@
         </div>
 
 @endsection
+
+@section('scripts')
+  <script type="text/javascript">
+    // flash highlight on page load
+    $("h3").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);  
+  </script>
+@endsection
