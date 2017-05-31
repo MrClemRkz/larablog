@@ -16,45 +16,18 @@
 
       <div class="row">
         <div class="col-md-8">
-          <div class="post">
-            <h3>Post Title</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-            <a href="#" class="btn btn-primary">Read More</a>
-          </div>
+          
+          @foreach($posts as $post)
 
-          <hr>
+            <div class="post">
+              <h3>{{ $post->title }}</h3>
+              <p>{{ substr($post->body, 0, 30) }}{{ (strlen($post->body)>30) ? '...' : '' }}</p>
+              <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Read More</a>
+            </div>
 
-          <div class="post">
-            <h3>Post Title</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-            <a href="#" class="btn btn-primary">Read More</a>
-          </div>
+            <hr>
 
-          <hr>
-
-          <div class="post">
-            <h3>Post Title</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-            <a href="#" class="btn btn-primary">Read More</a>
-          </div>
-
-          <hr>
-
-          <div class="post">
-            <h3>Post Title</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-            <a href="#" class="btn btn-primary">Read More</a>
-          </div>
-
-          <hr>
+          @endforeach
 
         </div>
         <div class="col-md-3 col-md-offset-1">
