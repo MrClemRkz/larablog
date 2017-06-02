@@ -40,6 +40,7 @@ class PostController extends Controller
         // validating the inputs
         $this->validate($request, array(
                 'title' => 'required|max:255',
+                'slug' => 'required|max:255',
                 'body' => 'required'
             ));
 
@@ -47,13 +48,21 @@ class PostController extends Controller
         $post = new Post;
 
         $post->title = $request->title;
+        $post->slug = $request->slug;
         $post->body = $request->body;
 
-        $post->save();
+        try{
+            $post->save();
+            Session::flash('success', 'The blog post was successfully saved!');
+            return redirect()->route('posts.show', $post->id);
+        }catch(\Illuminate\Database\QueryException $exception){ // to handle PDOExceptions and give user a understandable reasons
+            if(strpos($exception->getMessage(), 'posts_slug_unique') !== false){
+                $message = "due to duplicate entry for 'Slug'. Please enter different value.";
+            }
+            Session::flash('error', 'The blog post was NOT saved, '.$message);
+            return redirect()->route('posts.create', $post->id);
+        }
 
-        Session::flash('success', 'The blog post was successfully saved!');
-
-        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -91,20 +100,30 @@ class PostController extends Controller
     {
         $this->validate($request, array(
                 'title' => 'required|max:255',
+                'slug' => 'required|max:255',
                 'body' => 'required'
             ));
 
         $post = Post::find($id);
 
         $post->title = $request->input('title');
+        $post->slug = $request->input('slug');
         $post->body = $request->input('body');
 
-        //following is automatically insert value to updated_at column of Posts table
-        $post->save();
+        try{
+            //following is automatically insert value to updated_at column of Posts table
+            $post->save();
+            Session::flash('success', 'Post successfully updated.');
+            return redirect()->route('posts.show', $post->id);
+        }catch(\Illuminate\Database\QueryException $exception){ // to handle PDOExceptions and give user a understandable reasons
+            if(strpos($exception->getMessage(), 'posts_slug_unique') !== false){
+                $message = "due to duplicate entry for 'Slug'. Please enter different value.";
+            }
+            Session::flash('error', 'The blog post is NOT updated, '.$message);
+            return redirect()->route('posts.create', $post->id);
+        }
 
-        Session::flash('success', 'Post successfully updated.');
-
-        return redirect()->route('posts.show', $post->id);
+       
     }
 
     /**
