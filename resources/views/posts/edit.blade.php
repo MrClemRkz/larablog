@@ -19,6 +19,10 @@
 		<div class="col-md-4">
 			<div class="well">
 				<dl class="dl-horizontal">
+					<dt>URL:</dt>
+					<dd><a href="{{ route('blog.single', $post->slug) }}">{{ route('blog.single', $post->slug) }}</a></dd>
+				</dl>
+				<dl class="dl-horizontal">
 					<dt>Created at:</dt>
 					<dd>{{ date('d M Y h:ia', strtotime($post->created_at)) }}</dd>
 				</dl>
